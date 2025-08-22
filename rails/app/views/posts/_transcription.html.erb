@@ -1,0 +1,17 @@
+<%# app/views/posts/_transcription.html.erb %>
+
+<% if post.processing? %>
+  <div class="d-flex align-items-center text-muted">
+    <div class="spinner-border spinner-border-sm me-2" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <strong>Processing audio...</strong>
+  </div>
+<% elsif post.completed? %>
+  <p class="card-text"><%= post.raw_transcript %></p>
+<% elsif post.failed? %> <%# <-- Ensure this condition exists %>
+  <div class="alert alert-danger" role="alert">
+    <strong><i class="bi bi-exclamation-triangle-fill"></i> Transcription Failed</strong>
+    <p class="mb-0">Sorry, we couldn't process your audio. Please try again.</p>
+  </div>
+<% end %>

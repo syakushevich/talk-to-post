@@ -1,0 +1,6 @@
+# Rails credentials
+rails/config/credentials/development.key
+rails/config/credentials/development.yml.enc
+
+# Android credentials
+android/app/src/debug/google-services.json

@@ -1,0 +1,39 @@
+services:
+  web:
+    build: .
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -b '0.0.0.0'"
+    volumes:
+      - ./rails:/app/rails
+      - rails_db:/app/rails/db
+    ports:
+      - "3000:3000"
+    depends_on:
+      - redis
+    environment:
+      - RAILS_ENV=development
+      - REDIS_URL=redis://redis:6379/1
+
+  # The Sidekiq background worker
+  worker:
+    build: .
+    command: bundle exec sidekiq
+    volumes:
+      # Mount your local rails code into the container
+      - ./rails:/app/rails
+    depends_on:
+      - redis
+    environment:
+      - RAILS_ENV=development
+      - REDIS_URL=redis://redis:6379/1
+
+  # The Redis service for Sidekiq
+  redis:
+    image: "redis:7-alpine"
+    volumes:
+      # Persist Redis data
+      - redis_data:/data
+
+# Define named volumes for data persistence
+volumes:
+  redis_data:
+  rails_db:

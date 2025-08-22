@@ -1,0 +1,23 @@
+<%# app/views/posts/new.html.erb %>
+<div
+  class="d-flex justify-content-center align-items-center mt-5"
+  data-controller="recording"
+>
+  <div class="ratio ratio-1x1" style="width: 250px;">
+    <a
+      href="#"
+      class="btn btn-primary d-flex align-items-center justify-content-center rounded-4"
+      data-recording-target="button"
+      data-action="mousedown->recording#start mouseup->recording#stop mouseleave->recording#stop"
+    >
+      <%# The default mic icon %>
+      <span data-recording-target="iconMic">
+        <%= lucide_icon("mic", size: 120) %>
+      </span>
+      <%# The recording indicator icon, hidden by default %>
+      <span data-recording-target="iconRecording" class="d-none">
+        <%= lucide_icon("circle", size: 120) %>
+      </span>
+    </a>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+<%# app/views/posts/show.html.erb %>
+
+<%= turbo_stream_from @post %> <%# This subscribes to updates for this specific post %>
+
+<div class="card">
+  <div class="card-header">
+    Post created on <%= @post.created_at.strftime("%B %d, %Y") %>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Transcription</h5>
+
+    <%# This div's ID is the target for the Turbo Stream replacement %>
+    <div id="<%= dom_id(@post, :transcription_result) %>">
+      <%= render "transcription", post: @post %>
+    </div>
+  </div>
+</div>
