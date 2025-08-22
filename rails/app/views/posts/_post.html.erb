@@ -1,0 +1,17 @@
+<%# app/views/posts/_post.html.erb %>
+
+<div id="<%= dom_id(post) %>" class="post-card">
+  <p><strong>Status:</strong> <%= post.status %></p>
+
+  <%# This is the target for our broadcasted transcription result %>
+  <div id="<%= dom_id(post, :transcription_result) %>">
+    <% if post.completed? %>
+      <p><strong>Transcription:</strong></p>
+      <p><%= post.raw_transcript %></p>
+    <% elsif post.processing? %>
+      <p><em>Transcription is processing...</em></p>
+    <% elsif post.failed? %>
+      <p><em>Transcription failed. Please try again.</em></p>
+    <% end %>
+  </div>
+</div>

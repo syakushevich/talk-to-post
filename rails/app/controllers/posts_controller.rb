@@ -15,11 +15,11 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.build(post_params)
+    @post = Post.new(post_params)
     @post.status = :processing
 
     if @post.save
-      TranscriptionJob.perform_async(@post.id)
+      TranscriptionJob.perform_later(@post.id)
       redirect_to @post, notice: "Post is being processed."
     else
       render :new, status: :unprocessable_entity

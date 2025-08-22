@@ -1,0 +1,20 @@
+# Action Cable uses a subscription adapter to process its pub/sub internals.
+# By default, Rails comes with an async adapter for development and testing.
+# For production, you should use a more robust adapter like redis or postgresql.
+
+development:
+  adapter: async
+
+test:
+  adapter: test
+
+production:
+  adapter: redis
+  # The URL is read from the REDIS_URL environment variable.
+  # This is a best practice for security and flexibility.
+  # Your docker-compose.yml file already sets this variable for your containers.
+  url: <%= ENV.fetch('REDIS_URL', 'redis://localhost:6379/1') %>
+  # The channel_prefix helps to avoid channel name collisions
+  # when you are using the same Redis server for multiple applications.
+  channel_prefix: your_app_name_production
+

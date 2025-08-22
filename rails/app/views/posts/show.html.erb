@@ -1,6 +1,7 @@
 <%# app/views/posts/show.html.erb %>
 
-<%= turbo_stream_from @post %> <%# This subscribes to updates for this specific post %>
+<%# Subscribe to the correct named stream %>
+<%= turbo_stream_from [@post, :transcription] %>
 
 <div class="card">
   <div class="card-header">
